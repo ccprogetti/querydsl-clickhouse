@@ -27,11 +27,11 @@ public class PersonDaoImpl implements PersonDao {
     @Inject
     SQLQueryFactory queryFactory;
 
-    //private DocumentEntity documentEntity = new DocumentDao();
+    // private DocumentEntity documentEntity = new DocumentDao();
 
     final QBean<Person> personBean = bean(Person.class, person.all());
-    
-    final QBean<DocumentDao> documentBean = bean(DocumentDao.class, DocumentEntity.getInstance() );
+
+    final QBean<DocumentDao> documentBean = bean(DocumentDao.class, DocumentEntity.getInstance());
 
     @Override
     public Person findById(long id) {
@@ -44,25 +44,30 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public List<?> findAllDocuments(Predicate... where) {
         List<Expression<?>> projection = new ArrayList<>(3);
-		List<OrderSpecifier<?>> order = new ArrayList<>(2);
+        List<OrderSpecifier<?>> order = new ArrayList<>(2);
 
         // if (detailExpression != null)
-		// {
-		// 	projection.add(detailExpression);
-		// 	order.add(OrderSpecifier.class.getConstructor(Order.class, Expression.class).newInstance(Order.ASC, detailExpression));
-		// }
+        // {
+        // projection.add(detailExpression);
+        // order.add(OrderSpecifier.class.getConstructor(Order.class,
+        // Expression.class).newInstance(Order.ASC, detailExpression));
+        // }
 
-        //projection.add(entityExpression);
-		//projection.add(weightExpression);
-	
-        //return queryFactory.select(documentBean)
-        return queryFactory.select(DocumentEntity.getInstance().alphanumericFields("ciao")) 
-        .from(DocumentEntity.getInstance().getRoot())
-        .where(where)
-        //.groupBy(projection.subList(0, projection.size() - 1).toArray(new Expression<?>[0]))
-        .orderBy(order.toArray(new OrderSpecifier<?>[0]))
-        .fetch();
-    
+        // projection.add(entityExpression);
+        // projection.add(weightExpression);
+
+        // return queryFactory.select(documentBean)
+        return queryFactory
+                .select(DocumentEntity.getInstance().alphanumericFields("ADV_4_SDM_MatlGroup_es_ES"),
+                         DocumentEntity.getInstance().alphanumericFields("PUR_ADD_COST_TYPE").count())
+                .from(DocumentEntity.getInstance().getRoot())
+                .where(where)
+                .groupBy(DocumentEntity.getInstance().alphanumericFields("ADV_4_SDM_MatlGroup_es_ES"))
+                // .groupBy(projection.subList(0, projection.size() - 1).toArray(new
+                // Expression<?>[0]))
+                .orderBy(order.toArray(new OrderSpecifier<?>[0]))
+                .fetch();
+
     }
 
     @Override
@@ -79,12 +84,12 @@ public class PersonDaoImpl implements PersonDao {
 
         if (id == null) {
             id = queryFactory.insert(person)
-                .populate(p).execute();
+                    .populate(p).execute();
             p.setId(id);
         } else {
             queryFactory.update(person)
-                .populate(p)
-                .where(person.id.eq(id)).execute();
+                    .populate(p)
+                    .where(person.id.eq(id)).execute();
         }
 
         return p;
@@ -92,14 +97,14 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public long count() {
-        return queryFactory.from(person).fetchCount();
+        return queryFactory.from(DocumentEntity.getInstance()).fetchCount();
     }
 
     @Override
     public void delete(Person p) {
         queryFactory.delete(person)
-            .where(person.id.eq(p.getId()))
-            .execute();
+                .where(person.id.eq(p.getId()))
+                .execute();
     }
 
 }

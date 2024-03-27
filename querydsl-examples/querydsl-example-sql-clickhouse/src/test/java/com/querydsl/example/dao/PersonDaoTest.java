@@ -29,6 +29,13 @@ public class PersonDaoTest extends AbstractDaoTest {
     }
 
     @Test
+    public void count() {
+        long count = personDao.count();
+        System.out.println(count);
+        assertNotNull(personDao.count());
+    }
+
+    @Test
     public void update() {
         Person person = personDao.findById(1);
         personDao.save(person);

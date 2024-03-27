@@ -50,35 +50,37 @@ public abstract class NoSqlEntityPath<T, I extends Comparable<? super I> & Seria
 	 */
 	protected static final String FIELD_LABEL = "Fields";
 
+	protected static final String FIELD_SOURCE_LABEL = "_source.";
+
 	/**
 	 * The prefix label for mapping alphanumeric fields.
 	 */
-	private static final String ALPHANUMERIC_LABEL = "alphanumeric";
+	private static final String ALPHANUMERIC_LABEL = FIELD_SOURCE_LABEL + "alphanumeric";
 
 	/**
 	 * The prefix label for mapping integer fields.
 	 */
-	private static final String INTEGER_LABEL = "integer";
+	private static final String INTEGER_LABEL = FIELD_SOURCE_LABEL +"integer";
 
 	/**
 	 * The prefix label for mapping decimal fields.
 	 */
-	private static final String DECIMAL_LABEL = "decimal";
+	private static final String DECIMAL_LABEL = FIELD_SOURCE_LABEL +"decimal";
 
 	/**
 	 * The prefix label for mapping date fields.
 	 */
-	private static final String DATE_LABEL = "date";
+	private static final String DATE_LABEL = FIELD_SOURCE_LABEL +"date";
 
 	/**
 	 * The prefix label for mapping date/time fields.
 	 */
-	private static final String DATETIME_LABEL = "datetime";
+	private static final String DATETIME_LABEL = FIELD_SOURCE_LABEL +"datetime";
 
 	/**
 	 * The prefix label for mapping boolean fields.
 	 */
-	private static final String BOOLEAN_LABEL = "boolean";
+	private static final String BOOLEAN_LABEL = FIELD_SOURCE_LABEL +"boolean";
 
 	/**
 	 * The field's mapping label configured for this entity. It is used as suffix of typed labels. When
